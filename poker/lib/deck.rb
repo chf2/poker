@@ -5,6 +5,7 @@ class Deck
 
   def initialize
     @cards = get_new_cards
+    p "HELLO"
   end
 
   def re_shuffle
@@ -15,9 +16,9 @@ class Deck
     @cards = get_new_cards
   end
 
-  def deal
+  def deal(n)
     raise RuntimeError.new if @cards.empty?
-    @cards.pop
+    @cards.pop(n)
   end
 
   private
@@ -29,6 +30,7 @@ class Deck
         cards << Card.new(suit,rank)
       end
     end
+    p cards
     cards.shuffle
   end
 

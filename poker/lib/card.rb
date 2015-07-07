@@ -10,6 +10,10 @@ class Card
     @suit, @rank = suit, rank
   end
 
+  def inspect
+    "#{rank} of #{suit}"
+  end
+
   def rank
     return @rank if @rank.is_a?(Fixnum)
     decoder = {J: 11, Q: 12, K: 13, A: 14}

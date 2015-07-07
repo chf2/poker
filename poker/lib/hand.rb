@@ -25,6 +25,14 @@ class Hand
     end
   end
 
+  def discard(*card_index)
+    leftover_cards = []
+    @cards.each_with_index do |card, index|
+      leftover_cards << card unless card_index.include?(index)
+    end
+    @cards = leftover_cards
+  end
+
   private
 
   def one_pair
@@ -38,7 +46,6 @@ class Hand
 
   def three_of_a_kind
     rank = nil
-
     @cards.each do |card|
       rank = card.rank if @cards.count(card.rank) == 3
     end
@@ -47,7 +54,6 @@ class Hand
 
   def four_of_a_kind
     rank = nil
-
     @cards.each do |card|
       rank = card.rank if @cards.count(card.rank) == 4
     end
@@ -78,19 +84,11 @@ class Hand
 
   def two_pair
     ranks = @cards.map {|card| card.rank }.sort
-
     pairs = []
     ranks.each do |el|
-      if ranks.count(el) == 2
-        pairs << el
-      end
+      pairs << el if ranks.count(el) == 2
     end
-
-    if pairs.length == 4
-      ranks.last
-    else
-      nil
-    end
+    pairs.length == 4 ? ranks.last : nil
   end
 
   def straight
